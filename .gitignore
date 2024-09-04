@@ -1,0 +1,13 @@
+/node_modules/
+.env
+docker.txt
+**/node_modules/
+
+**/dist
+
+.env.dev
+.env.prod
+friendore.zip
+.DS_Store
+/dbdata
+/cert

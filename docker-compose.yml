@@ -1,0 +1,9 @@
+services:
+  mongo:
+    image: 'mongo:7'
+    volumes:
+      - ./dbdata:/data/db
+    ports:
+      - '27017:27017'
+    environment:
+      MONGO_INITDB_DATABASE: prod
