@@ -1,15 +1,11 @@
-// const { sendEmail } = require("../utils/sendEmail.js");
 const config = require("../../../config.js");
 const passport = require("passport");
 const passportGoogleOauth2 = require("passport-google-oauth2");
 const userModel = require("../../../models/userModel");
 
-// PASSPORT Google onboarding STRATEGY
-
 passport.use(
   "google-onboarding",
   new passportGoogleOauth2.Strategy(
-    // overriding default callback with custom one in order to perform custom action post-login
     {
       ...config.google,
       callbackURL: `${config.appUrl}/api/auth/onboarding/google/callback`,

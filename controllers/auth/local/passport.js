@@ -1,11 +1,9 @@
 const userModel = require("../../../models/userModel.js");
-// const { sendEmail } = require("../utils/sendEmail.js");
 const { scryptVerify } = require("../../../utils/password.js");
 
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
 
-// PASSPORT LOCAL STRATEGY
 passport.use(
   new LocalStrategy(
     {
@@ -32,7 +30,6 @@ passport.use(
           return done(null, false, { code: "incorrect_username" });
         }
 
-        // Function defined at bottom of app.js
         const isValid = await scryptVerify(password, user.hash);
 
         if (isValid) {
@@ -47,7 +44,6 @@ passport.use(
   )
 );
 
-// PASSPORT SERIALIZATION
 passport.serializeUser(function (user, done) {
   done(null, user._id.toString());
 });

@@ -1,16 +1,10 @@
 const cpus = require("os").cpus;
 const { timingSafeEqual, randomBytes, scrypt } = require("crypto");
 
-/** Buffer encoding - `base64` */
 const DEFAULT_ENCODING = "base64";
-/** `keylen` */
 const DEFAULT_LENGTH = 32;
-
-/** CPU/memory cost parameter - `N` */
 const DEFAULT_COST = 14;
-/** Block size parameter - `r` */
 const DEFAULT_BLOCK_SIZE = 8;
-/** Parallelization parameter - `p` */
 const DEFAULT_PARALLELIZATION = cpus().length;
 
 function scryptToString({
@@ -25,9 +19,6 @@ function scryptToString({
   return `$${algorithm}$v=${version}$N=${cost}$r=${blockSize}$p=${parallelization}$${salt}$${hash}`;
 }
 
-/**
- * Hashes a password with a random salt (using `scrypt`)
- */
 async function scryptHash({
   cost = DEFAULT_COST,
   blockSize = DEFAULT_BLOCK_SIZE,
@@ -84,7 +75,6 @@ function scryptFromString(input) {
     throw new Error("Hash string has unsupported format");
   }
 
-  // '$scrypt'.length + 2 = 8
   const parts = input.substring(8).split("$");
 
   const hash = parts.pop();
@@ -128,9 +118,6 @@ function scryptFromString(input) {
   return options;
 }
 
-/**
- * Verifies that the password matches the saved hash (produced by the `hashPassword` funciton)
- */
 async function scryptVerify(password, hashedData) {
   const { cost, blockSize, parallelization, ...options } =
     scryptFromString(hashedData);
